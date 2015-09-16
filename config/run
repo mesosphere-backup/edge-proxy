@@ -1,0 +1,16 @@
+#!/bin/sh
+UPSTREAM=$1
+if [ -z "$UPSTREAM" ]; then
+  echo "$0 host:port" >&2
+  exit 1
+fi
+
+for line in "$@"; do
+  echo "$line"
+done > /tmp/htpasswd
+
+sed "s/<UPSTREAM>/$UPSTREAM/" /config/tengine.conf.in \
+  > /tmp/tengine.conf
+
+mkdir /tmp/tengine
+exec nginx -c /tmp/tengine.conf
