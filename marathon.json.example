@@ -1,11 +1,11 @@
 {
-  "id": "moxy",
+  "id": "moxy-edge",
   "cpus": 0.01,
   "mem": 128,
   "instances": 1,
   "constraints": [["hostname", "UNIQUE"]],
   "acceptedResourceRoles": ["slave_public"],
-  "cmd": "moxy.marathon.mesos:8888 user:crypted-password",
+  "args": [ "moxy.marathon.mesos:8888", "user:crypted-password" ],
   "container": {
     "type": "DOCKER",
     "docker": {
@@ -13,9 +13,9 @@
       "forcePullImage": true,
       "network": "BRIDGE",
       "portMappings": [
-        { "containerPort": 80, "hostPort": 80 }
+        { "containerPort": 443, "hostPort": 443 }
       ]
     }
   },
-  "ports": [ 80 ]
+  "ports": [ 443 ]
 }

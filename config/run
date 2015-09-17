@@ -12,5 +12,9 @@ done > /tmp/htpasswd
 sed "s/<UPSTREAM>/$UPSTREAM/" /config/tengine.conf.in \
   > /tmp/tengine.conf
 
+[ -e "/config/ssl.key" ] || openssl req -x509 -nodes -days 365 \
+  -subj '/CN=www.mydom.com/O=My Company Name LTD./C=US' \
+  -newkey rsa:2048 -keyout /config/ssl.key -out /config/ssl.crt
+
 mkdir /tmp/tengine
 exec nginx -c /tmp/tengine.conf
